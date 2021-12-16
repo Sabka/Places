@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mapbox.extension:maps-localization:10.1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e1131c04f43714736c70d90d9d74ee70/transformed/jetified-maps-localization-10.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e1131c04f43714736c70d90d9d74ee70/transformed/jetified-maps-localization-10.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e1131c04f43714736c70d90d9d74ee70/transformed/jetified-maps-localization-10.1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.extension/maps-localization/10.1.0/8b58d1e451ebb2adca23ff839c0db864a8b86e42/maps-localization-10.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.extension/maps-localization/10.1.0/d847e979abdbee8a1f71414bf8b5a68d41702872/maps-localization-10.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

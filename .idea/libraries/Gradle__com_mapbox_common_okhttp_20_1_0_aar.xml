@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mapbox.common:okhttp:20.1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c460fee92eb887444fdc0cb59862aa12/transformed/jetified-okhttp-20.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c460fee92eb887444fdc0cb59862aa12/transformed/jetified-okhttp-20.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c460fee92eb887444fdc0cb59862aa12/transformed/jetified-okhttp-20.1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.common/okhttp/20.1.0/cb536e752c9e4da6029b403c7417e5c8d90a57fb/okhttp-20.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.common/okhttp/20.1.0/3c9c9132d380aeef6bae13bd98d0a035293438f5/okhttp-20.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

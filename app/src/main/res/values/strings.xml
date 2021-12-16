@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Places</string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoic2Fia2EiLCJhIjoiY2t0ZW0zdHhxMnFyczJ2cGRwc3RpcmpxMiJ9.ynjcRva_B4GovH10vQjs2Q</string>
+</resources>
