@@ -49,6 +49,7 @@
             android:text="TextView"
             android:textColor="#F1EBEB"
             android:textColorHint="#F1EBEB"
+            android:textSize="20sp"
             android:visibility="visible" />
 
         <ImageView
@@ -69,6 +70,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:background="#E6474545"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +142,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editTextDate"
+                android:id="@+id/date"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -97,7 +97,12 @@ class MainActivity : AppCompatActivity()
 
     private fun addPlace(longitude: Double, latitude: Double)
     {
-        val inputdata = hashMapOf("longitude" to longitude, "latitude" to latitude, "name" to nameIn.text.toString(), "remark" to remark.text.toString())
+        val inputdata = hashMapOf(
+            "longitude" to longitude,
+            "latitude" to latitude,
+            "name" to nameIn.text.toString(),
+            "remark" to remark.text.toString(),
+            "date" to date.text.toString())
 
         db.collection("places")
             .add(inputdata)
@@ -125,7 +130,7 @@ class MainActivity : AppCompatActivity()
                         {
                             formLayuot.visibility = View.INVISIBLE
                             infoLayout.visibility= View.VISIBLE
-                            infoBox.text = "${document.data["name"] as String }, ${document.data["remark"] as String }"
+                            infoBox.text = "${document.data["name"] as String } \n${document.data["remark"] as String } \n${document.data["date"].toString()}"
                         }
                     }
                 }
