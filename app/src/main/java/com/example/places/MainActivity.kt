@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity()
         mapboxMap.addOnMapClickListener()
         {
             //Toast.makeText(this, "map clicked", Toast.LENGTH_SHORT).show()
-            infoBox.visibility = View.INVISIBLE
+            infoLayout.visibility = View.INVISIBLE
             formLayuot.visibility = View.INVISIBLE
             true
         }
@@ -123,7 +123,8 @@ class MainActivity : AppCompatActivity()
                     {
                         if(document.id == id)
                         {
-                            infoBox.visibility= View.VISIBLE
+                            formLayuot.visibility = View.INVISIBLE
+                            infoLayout.visibility= View.VISIBLE
                             infoBox.text = "${document.data["name"] as String }, ${document.data["remark"] as String }"
                         }
                     }
