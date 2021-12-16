@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentEnd="true"
     tools:context=".MainActivity">
 
     <com.mapbox.maps.MapView
@@ -36,15 +37,17 @@
 
     <LinearLayout
         android:id="@+id/formLayuot"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="#E6474545"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mapView"
-        android:background="@color/purple_200">
+        app:layout_constraintTop_toTopOf="@+id/mapView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,12 +61,16 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Place title" />
+                android:text="Place title"
+                android:textColor="#F1EBEB"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/nameIn"
-                android:layout_width="wrap_content"
-                android:layout_height="67dp" />
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textColor="#F1EBEB"
+                android:textColorHint="#F1EBEB" />
         </LinearLayout>
 
         <LinearLayout
@@ -78,12 +85,16 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="write remark" />
+                android:text="Remark"
+                android:textColor="#F1EBEB"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/remark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textColor="#F1EBEB"
+                android:textColorHint="#F1EBEB" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,20 +109,24 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="date" />
+                android:text="Date"
+                android:textColor="#F1EBEB"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextDate"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="date" />
+                android:inputType="date"
+                android:textColor="#F1EBEB"
+                android:textColorHint="#F1EBEB" />
         </LinearLayout>
 
         <Button
             android:id="@+id/save"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onSaveBtnClicked"
             android:text="SAVE" />
