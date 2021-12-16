@@ -51,6 +51,13 @@ class MainActivity : AppCompatActivity()
                     true
         }
 
+        pointManager.addLongClickListener()
+        {
+            deletePlace(points[it.id])
+            pointManager.delete(it)
+            true
+        }
+
         loadAllPlaces()
 
         mapboxMap.addOnMapClickListener()
@@ -67,6 +74,19 @@ class MainActivity : AppCompatActivity()
             last_point = Pair(it.longitude(), it.latitude())
             true
         }
+    }
+
+    private fun deletePlace(id: String?)
+    {
+        if (id != null) {
+            db.collection("places").document(id)
+                .delete()
+                .addOnSuccessListener {  Toast.makeText(this, "place deletion succesful :)", Toast.LENGTH_SHORT).show() }
+                .addOnFailureListener { Toast.makeText(this, "place deletion unsuccesful :(", Toast.LENGTH_SHORT).show() }
+        }
+
+        loadAllPlaces()
+
     }
 
     fun onSaveBtnClicked(view : View)
