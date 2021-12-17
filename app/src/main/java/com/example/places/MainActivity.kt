@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity()
     private var lastPoint = Pair(17.7, 48.8) // lon, lat
     private var PICK_IMAGE = 1
     lateinit var storageRef: StorageReference
+    lateinit var chosenPhoto: Uri
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -83,13 +84,18 @@ class MainActivity : AppCompatActivity()
             true
         }
 
-        val localFile = File.createTempFile("images", "tmp.jpg")
-
         val storage = Firebase.storage
         storageRef = storage.reference
-        val tshirt = storageRef.child("560.jpg")
 
-        tshirt.getFile(localFile).addOnSuccessListener {
+    }
+
+    fun loadPhoto(name : String)
+    {
+        val localFile = File.createTempFile("images", "tmp.jpg")
+
+        val dispPhoto = storageRef.child("images/${name}")
+
+        dispPhoto.getFile(localFile).addOnSuccessListener {
             val drawable = Drawable.createFromPath(localFile.path)
             photo.setImageDrawable(drawable)
             //Toast.makeText(this, "succes: ", Toast.LENGTH_SHORT).show()
@@ -98,12 +104,32 @@ class MainActivity : AppCompatActivity()
         }
     }
 
-    fun pickAndUploadImage(view: View)
+    fun pickImage(view: View)
     {
         val intent = Intent()
         intent.setType("image/*")
         intent.setAction(Intent.ACTION_GET_CONTENT)
         startActivityForResult(Intent.createChooser(intent, "Choose picture"), PICK_IMAGE)
+    }
+
+    fun uploadImage()
+    {
+        val selectedImageUri = chosenPhoto
+        val riversRef = storageRef.child("images/${selectedImageUri?.lastPathSegment}")
+        val uploadTask = selectedImageUri?.let { riversRef.putFile(it) }
+
+        if (uploadTask != null)
+        {
+            uploadTask.addOnFailureListener {
+                // Handle unsuccessful uploads
+                Toast.makeText(this, "error: $it", Toast.LENGTH_LONG).show()
+            }.addOnSuccessListener { taskSnapshot ->
+                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+
+                Toast.makeText(this, "succes: ", Toast.LENGTH_SHORT).show()
+                // ...
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
@@ -112,19 +138,10 @@ class MainActivity : AppCompatActivity()
         if(requestCode == PICK_IMAGE)
         {
             Toast.makeText(this, "picture picked, ${data.toString()}", Toast.LENGTH_SHORT).show()
-            val selectedImageUri = data?.getData()
-            val riversRef = storageRef.child("images/${selectedImageUri?.lastPathSegment}")
-            val uploadTask = selectedImageUri?.let { riversRef.putFile(it) }
-
-            if (uploadTask != null) {
-                uploadTask.addOnFailureListener {
-                    // Handle unsuccessful uploads
-                    Toast.makeText(this, "error: $it", Toast.LENGTH_LONG).show()
-                }.addOnSuccessListener { taskSnapshot ->
-                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-
-                    Toast.makeText(this, "succes: ", Toast.LENGTH_SHORT).show()
-                    // ...
+            if (data != null) {
+                if(data.getData() != null)
+                {
+                    chosenPhoto = data.getData()!!
                 }
             }
         }
@@ -151,12 +168,15 @@ class MainActivity : AppCompatActivity()
 
     private fun addPlace(longitude: Double, latitude: Double)
     {
+        uploadImage()
+
         val inputdata = hashMapOf(
             "longitude" to longitude,
             "latitude" to latitude,
             "name" to nameIn.text.toString(),
             "remark" to remark.text.toString(),
-            "date" to date.text.toString())
+            "date" to date.text.toString(),
+            "photo_name" to chosenPhoto.lastPathSegment)
 
         db.collection("places")
             .add(inputdata)
@@ -185,6 +205,7 @@ class MainActivity : AppCompatActivity()
                             formLayuot.visibility = View.INVISIBLE
                             infoLayout.visibility= View.VISIBLE
                             infoBox.text = "${document.data["name"] as String } \n${document.data["remark"] as String } \n${document.data["date"].toString()}"
+                            if(document.data["photo_name"] != null) loadPhoto(document.data["photo_name"] as String)
                         }
                     }
                 }
