@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity()
         {
             //Toast.makeText(this, "map clicked", Toast.LENGTH_SHORT).show()
             infoLayout.visibility = View.INVISIBLE
+            photo.setImageDrawable(resources.getDrawable(R.drawable.geo_icon))
             formLayuot.visibility = View.INVISIBLE
             true
         }
@@ -242,7 +243,6 @@ class MainActivity : AppCompatActivity()
 
         Toast.makeText(this, "places loaded",Toast.LENGTH_SHORT).show()
     }
-
 
 }
 

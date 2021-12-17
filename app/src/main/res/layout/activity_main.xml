@@ -59,8 +59,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_launcher_background"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/geo_icon" />
     </LinearLayout>
 
     <LinearLayout
