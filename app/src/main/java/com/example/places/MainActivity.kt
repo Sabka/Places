@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity()
 
         val mapView = findViewById<MapView>(R.id.mapView)
         val mapboxMap = mapView.getMapboxMap()
-        mapboxMap.loadStyleUri(Style.MAPBOX_STREETS)
+        mapboxMap.loadStyleUri(Style.OUTDOORS)
 
 
         db = Firebase.firestore
