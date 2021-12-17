@@ -1,6 +1,9 @@
 package com.example.places
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import com.mapbox.geojson.Point
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
@@ -18,15 +23,18 @@ import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
 import com.mapbox.maps.plugin.gestures.addOnMapClickListener
 import com.mapbox.maps.plugin.gestures.addOnMapLongClickListener
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 
 class MainActivity : AppCompatActivity()
 {
 
-    var points = mutableMapOf<Long, String>()
-    lateinit var db: FirebaseFirestore
-    lateinit var pointManager: PointAnnotationManager
-    var last_point = Pair(17.7, 48.8) // lon, lat
+    private var points = mutableMapOf<Long, String>()
+    private lateinit var db: FirebaseFirestore
+    private lateinit var pointManager: PointAnnotationManager
+    private var lastPoint = Pair(17.7, 48.8) // lon, lat
+    private var PICK_IMAGE = 1
+    lateinit var storageRef: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -71,8 +79,54 @@ class MainActivity : AppCompatActivity()
         mapboxMap.addOnMapLongClickListener()
         {
             formLayuot.visibility = View.VISIBLE
-            last_point = Pair(it.longitude(), it.latitude())
+            lastPoint = Pair(it.longitude(), it.latitude())
             true
+        }
+
+        val localFile = File.createTempFile("images", "tmp.jpg")
+
+        val storage = Firebase.storage
+        storageRef = storage.reference
+        val tshirt = storageRef.child("560.jpg")
+
+        tshirt.getFile(localFile).addOnSuccessListener {
+            val drawable = Drawable.createFromPath(localFile.path)
+            photo.setImageDrawable(drawable)
+            //Toast.makeText(this, "succes: ", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            //Toast.makeText(this, "error: $it", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun pickAndUploadImage(view: View)
+    {
+        val intent = Intent()
+        intent.setType("image/*")
+        intent.setAction(Intent.ACTION_GET_CONTENT)
+        startActivityForResult(Intent.createChooser(intent, "Choose picture"), PICK_IMAGE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == PICK_IMAGE)
+        {
+            Toast.makeText(this, "picture picked, ${data.toString()}", Toast.LENGTH_SHORT).show()
+            val selectedImageUri = data?.getData()
+            val riversRef = storageRef.child("images/${selectedImageUri?.lastPathSegment}")
+            val uploadTask = selectedImageUri?.let { riversRef.putFile(it) }
+
+            if (uploadTask != null) {
+                uploadTask.addOnFailureListener {
+                    // Handle unsuccessful uploads
+                    Toast.makeText(this, "error: $it", Toast.LENGTH_LONG).show()
+                }.addOnSuccessListener { taskSnapshot ->
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+
+                    Toast.makeText(this, "succes: ", Toast.LENGTH_SHORT).show()
+                    // ...
+                }
+            }
         }
     }
 
@@ -91,7 +145,7 @@ class MainActivity : AppCompatActivity()
 
     fun onSaveBtnClicked(view : View)
     {
-        addPlace(last_point.first, last_point.second)
+        addPlace(lastPoint.first, lastPoint.second)
         formLayuot.visibility = View.INVISIBLE
     }
 
@@ -156,7 +210,7 @@ class MainActivity : AppCompatActivity()
                         ))
                         .withIconImage(icon)
 
-                    var point = pointManager.create(pointOptions)
+                    val point = pointManager.create(pointOptions)
                     //Toast.makeText(this, "${point.id}",Toast.LENGTH_SHORT).show()
                     points[point.id] = document.id
                     //Toast.makeText(this, "${point.id}, ${document.id}", Toast.LENGTH_SHORT).show()

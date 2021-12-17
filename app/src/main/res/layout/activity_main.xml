@@ -53,7 +53,7 @@
             android:visibility="visible" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/photo"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -76,6 +76,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/mapView">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,6 +152,29 @@
                 android:inputType="date"
                 android:textColor="#F1EBEB"
                 android:textColorHint="#F1EBEB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Photo" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="pickAndUploadImage"
+                android:text="choose photo" />
         </LinearLayout>
 
         <Button
