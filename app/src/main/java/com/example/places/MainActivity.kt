@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity()
     private var lastPoint = Pair(17.7, 48.8) // lon, lat
     private var PICK_IMAGE = 1
     lateinit var storageRef: StorageReference
-    lateinit var chosenPhoto: Uri
+    var chosenPhoto: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -114,6 +114,7 @@ class MainActivity : AppCompatActivity()
 
     fun uploadImage()
     {
+        if(chosenPhoto == null) return
         val selectedImageUri = chosenPhoto
         val riversRef = storageRef.child("images/${selectedImageUri?.lastPathSegment}")
         val uploadTask = selectedImageUri?.let { riversRef.putFile(it) }
@@ -176,7 +177,7 @@ class MainActivity : AppCompatActivity()
             "name" to nameIn.text.toString(),
             "remark" to remark.text.toString(),
             "date" to date.text.toString(),
-            "photo_name" to chosenPhoto.lastPathSegment)
+            "photo_name" to chosenPhoto?.lastPathSegment)
 
         db.collection("places")
             .add(inputdata)
